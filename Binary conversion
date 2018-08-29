@@ -1,0 +1,42 @@
+import java.util.Scanner;
+public class Test {
+	    public static void main(String[] args){
+	    Scanner scan = new Scanner(System.in);
+	    int N = scan.nextInt();
+	    int m = scan.nextInt();
+	    String str = "";
+	    if(N == 0)
+	    	str = "0";
+	    else if(N >0)
+	    {
+	    for(; N>0; N/= m)
+	    {
+	    	int n = N%m;
+	    	if(n < 10)
+	    	    str = n + str;
+	    	else{
+	    	   n = n + 55;
+	    	   char s = (char) n;
+	           str = s + str;
+	    	}
+	    }
+	    }
+	    else if( N < 0)
+	    {
+	    	N = N*-1;
+	    	for(; N>0; N/= m)
+		    {
+		    	int n = N%m;
+		    	if(n < 10)
+		    	    str = n + str;
+		    	else{
+		    	   n = n + 55;
+		    	   char s = (char) n;
+		           str = s + str;
+		    	}
+		    }
+	    	str = "-" + str  ;
+	    }
+	    System.out.println(str);
+	  }
+}
