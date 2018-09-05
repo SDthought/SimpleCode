@@ -1,0 +1,51 @@
+package chapter1_3;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Test {
+	public static int step(int m, int n)
+	{
+		int[] mark = new int[n+1];
+		for (int i = m+1; i < mark.length; i++) { //从m+1开始都是max
+			mark[i] = Integer.MAX_VALUE;
+		}
+		for(int i = m; i < n-1; i++)          //从m开始跳，能跳到的地方count+1
+		{
+			if(mark[i] == Integer.MAX_VALUE) continue;  //跳不到的地方，直接抛弃
+			ArrayList<Integer> list = allFactor(i);  
+			for(int j = 0; j < list.size();j++)
+			{
+				int factor = list.get(j);  
+				int reach = i + factor;
+				int count = mark[i] + 1;               //在之前已经跳了的步数上加1
+				if(reach <= n && mark[reach] > count)
+			    mark[reach] = count;              
+		     // if(reach <=n )
+		     // mark[reach] =Math.min(count,mark[reach]);  //到达
+			}
+		}
+		
+		return mark[n];
+	}
+
+	public static ArrayList<Integer> allFactor(int n) { // 获得n的所有因子 除了1和n本身
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for (int i = 2; i <= Math.sqrt(n); i++) {
+			if (n % i == 0) {
+				list.add(i);
+				if (n / i != i)
+					list.add(n / i);
+			}
+		}
+		return list;
+	}
+
+	public static void main(String args[]){
+         Scanner sc=new Scanner(System.in);
+         int m=sc.nextInt();
+         int n=sc.nextInt();
+         int r=step(m,n);
+         if(r==Integer.MAX_VALUE)r=-1;
+         System.out.println(r);
+        }  
+}
